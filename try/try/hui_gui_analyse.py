@@ -19,11 +19,6 @@ list_city = [86.8,68.11,70.61,53.21,57.22,71.4,53.79,48.91,59.43,55.52,63.4,51.0
 
 
 cnt = 0
-####'天津市': 1, '上海市': 2,'黑龙江省': 8,'浙江省': 10, '安徽省': 11,'山东省': 14,'宁夏回族自治区': 28,'西藏自治区':29,'新疆维吾尔自治区':30 无数据
-####  '重庆市': 1, '河北省':2,'海南省': 13,'甘肃省': 18,'山西省': 1, '江西省': 6,'福建省': 4,'湖北省': 6,
-
-### 留重庆 9.80 3，上海 2，山西 10.45 5检验
-
 for i in range(1, 145):
     path_of_each = path + "标注" + str(i) + ".json"
     file = open(path_of_each, 'rb')
@@ -62,13 +57,12 @@ plt.show()
 # plt.plot(Xi, y_plot, color='green',label="拟合直线",linewidth=2)
 # plt.legend(loc='lower right')
 # plt.show()
-##这里指定使用岭回归作为基函数
 minX = min(Xn) #以数据X的最大值和最小值为范围，建立等差数列，方便后续画图
 maxX = max(Xn)
 X = np.arange(minX, maxX).reshape([-1, 1])
-poly_reg = PolynomialFeatures(degree=3) #degree=2表示二次多项式
-X_poly = poly_reg.fit_transform(Xn) #构造datasets_X二次多项式特征X_poly
-lin_reg_2 = linear_model.LinearRegression() #创建线性回归模型
+poly_reg = PolynomialFeatures(degree=3)
+X_poly = poly_reg.fit_transform(Xn)
+lin_reg_2 = linear_model.LinearRegression()
 lin_reg_2.fit(X_poly, Yi)
 print(lin_reg_2.coef_)
 ##绘图
