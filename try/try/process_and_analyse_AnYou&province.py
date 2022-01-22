@@ -1,30 +1,9 @@
 import pandas as pd
 import numpy as np
 from scipy import stats
-import statsmodels
-import matplotlib.pyplot
 import json
 
 path = "D:\\桌面\\新建文件夹 (2)\\案件文本加标注100份(fin)\\标注100份\\"
-# province= {'北京市':0,'天津市':1,'上海市':2,'重庆市':3,'河北省':4,'山西省':5,'辽宁省':6,'吉林省':7,'黑龙江省':8,'江苏省':9,'浙江省':10,'安徽省':11,
-#            '福建省':12,'江西省':13,'山东省':14,'河南省':15,'湖北省':16,'湖南省':17,'广东省':18,'海南省':19,'四川':20,'四川省':20,'贵州省':21,
-#            '云南省':22,'陕西省':23,'甘肃省':24,'青海省':25,'内蒙古自治区':26,'广西壮族自治区':27,'宁夏回族自治区':28}
-# an_you = {'交通肇事':0,'以危险方法危害公共安全':1,'非法吸收公众存款':2,'非法制造枪支':3,'危险驾驶':4,'涉嫌犯危险驾驶':4,'赌博':5,'受贿':6,'贪污':6,
-#           '非法捕捞水产品':7,'贩卖毒品':8,'运输毒品':8,'诈骗':9,'组织领导传销活动':10,'盗窃':11,'故意杀人':12,'故意伤害':13,'抢劫':14,'妨害公务':15,
-#           '合同诈骗':16}
-# 危害国家安全罪:         0
-# 危害公共安全罪:         1-交通肇事、危险驾驶、非法制造枪支、以危险方法危害公共安全 0
-# 破坏社会主义经济秩序罪:  2、合同诈骗、非法吸收存款、传销活动 1
-# 侵犯公民人身权利、民主权利罪:3 故意杀人、故意伤害 2
-# 侵犯财产罪:            4-诈骗、抢劫、盗窃 3
-# 妨害社会管理秩序罪:      5、妨害公务、赌博、非法捕捞水产品、贩卖运输毒品 4
-# 危害国防利益罪:         6
-# 贪污贿赂罪:           7受贿、贪污 5
-# 渎职罪:               8
-# 军人违反职责罪:        9
-# an_you = {'交通肇事':0,'以危险方法危害公共安全':0,'非法吸收公众存款':1,'非法制造枪支':0,'危险驾驶':0,'涉嫌犯危险驾驶':0,'赌博':4,'受贿':5,'贪污':5,
-#           '非法捕捞水产品':4,'贩卖毒品':4,'运输毒品':4,'诈骗':3,'组织领导传销活动':1,'盗窃':3,'故意杀人':2,'故意伤害':2,'抢劫':3,'妨害公务':4,
-#           '合同诈骗':1}
 #北京上海 0 15w以上
 #江苏福建浙江 1 10-15w
 #广东、天津、重庆、湖北、山东、内蒙、陕西、四川、辽宁、宁夏、江西、新疆、西藏、云南安徽湖南海南河南 2 5w-10w
@@ -43,7 +22,6 @@ def violate_property():
         path_of_each = path+"标注"+str(i)+".json"
         file = open(path_of_each,'rb')
         fileJson = json.load(file)
-        # print(fileJson['案由'])
         first =[]
         second =[]
         for key,value in province.items():
@@ -59,11 +37,6 @@ def violate_property():
                 for pro in range(0,len(first)):
                     list[second[an]][first[pro]]=list[second[an]][first[pro]]+1
                     cnt = cnt+1
-        # elif len(first)==0:
-        #     print(fileJson['出生地'])
-        # else:
-        #     print(str(i))
-        #     print(fileJson['案由'])
     print("共"+str(cnt)+"份有效数据")
     index = ["非侵犯财产","侵犯财产"]
     column = ["15w以上","10w-15w","5w-10w","5w以下"]
@@ -103,7 +76,6 @@ def accusation_education():
         path_of_each = path + "标注" + str(i) + ".json"
         file = open(path_of_each, 'rb')
         fileJson = json.load(file)
-        # print(fileJson['案由'])
         first = []
         second = []
         for key, value in province.items():
@@ -119,11 +91,6 @@ def accusation_education():
                 for pro in range(0, len(first)):
                     list[second[an]][first[pro]] = list[second[an]][first[pro]] + 1
                     cnt = cnt + 1
-        # elif len(first)==0:
-        #     print(fileJson['出生地'])
-        # else:
-        #     print(str(i))
-        #     print(fileJson['案由'])
     print("共" + str(cnt) + "份有效数据")
     # 危害国家安全罪:         0
     # 危害公共安全罪:         1-交通肇事、危险驾驶、非法制造枪支、以危险方法危害公共安全 0
