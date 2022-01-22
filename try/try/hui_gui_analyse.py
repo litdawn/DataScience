@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-from scipy import stats
 from statsmodels.formula.api import ols
 import matplotlib.pyplot as plt
 import json
@@ -40,24 +39,18 @@ print("共" + str(cnt) + "份有效数据")
 df = pd.DataFrame(np.array(real_list),columns=["crime","gdp","education","population","city"],index=provinces.keys())
 df.info()
 df.head()
-lm = ols('crime ~ gdp + education + population + city',data=df).fit()
+lm = ols('crime ~ gdp + education + population + city',data=df).fit()#多元线性
 print(lm.summary())
 Xi = np.array(list_gdp).reshape(-11, 1)
 Xj = np.array(list_educationyear).reshape(-11,1)
 Xm = np.array(list_city).reshape(-11,1)
 Xn = np.array(list_population).reshape(-1,1)
 Yi = np.array(list_crime).reshape(-100, 1)
+#散点图
 plt.scatter(Xm,Yi, s=10)
 plt.show()
-# model =linear_model.LinearRegression()##训练数据
-# model.fit(Xi, Yi)##用训练得出的模型预测数据
-# y_plot =model.predict(Xi)##打印线性方程的权重
-# print(model.coef_) ## 0.90045842##绘图
-# plt.scatter(Xi, Yi, color='red',label="样本数据",linewidth=2)
-# plt.plot(Xi, y_plot, color='green',label="拟合直线",linewidth=2)
-# plt.legend(loc='lower right')
-# plt.show()
-minX = min(Xn) #以数据X的最大值和最小值为范围，建立等差数列，方便后续画图
+#一元多项式回归
+minX = min(Xn)
 maxX = max(Xn)
 X = np.arange(minX, maxX).reshape([-1, 1])
 poly_reg = PolynomialFeatures(degree=3)
@@ -65,7 +58,6 @@ X_poly = poly_reg.fit_transform(Xn)
 lin_reg_2 = linear_model.LinearRegression()
 lin_reg_2.fit(X_poly, Yi)
 print(lin_reg_2.coef_)
-##绘图
 plt.scatter(Xn, Yi, color='red',s = 50)
 plt.plot(X, lin_reg_2.predict(poly_reg.fit_transform(X)), color='blue')
 plt.show()
